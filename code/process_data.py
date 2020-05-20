@@ -6,7 +6,6 @@ wFileName='/Users/luzhongyi/Downloads/realtime_route_data_edited.csv'
 wwFileName='/Users/luzhongyi/Downloads/map.csv'
 
 def openCSV(FileName):
-	flight_status = []
 	
 	with open(wFileName, "w") as wcsvfile:
 		writer = csv.writer(wcsvfile)
@@ -27,12 +26,10 @@ def openCSV(FileName):
 						if x[0]=="longitude" or x[0]=="latitude":
 							newRoww.append(x[1]+'\t')
 						newRow.append(x[1]+'\t')
-					flight_status.append(element)
 					wwriter.writerow(newRoww)
 					writer.writerow(newRow)
 					print(newRoww);
 				
 					i = i + 1
-	return flight_status
 openCSV(sFileName)
 	

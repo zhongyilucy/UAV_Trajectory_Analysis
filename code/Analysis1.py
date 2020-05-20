@@ -40,19 +40,19 @@ position = []
 positionFake=[]
 
 #read false data
-with open('/Users/luzhongyi/Desktop/data_velocity_GPS_false.csv','r',encoding='UTF-8') as file:
+with open('/Users/luzhongyi/Desktop/test_10_false.csv','r',encoding='UTF-8') as file:
 	reader1 = csv.reader(file);
 	for i in reader1:
 		GPSlngFake.append(float(i[5]))
 #read all the data
-with open('/Users/luzhongyi/Desktop/data_velocity_GPS.csv','r',encoding='UTF-8') as f:
+with open('/Users/luzhongyi/Desktop/test_10.csv','r',encoding='UTF-8') as f:
 	reader = csv.reader(f)
 	for i in reader:
 		name.append(i[0])
 		velocityX.append(float(i[1]))
 		velocityY.append(round(float(i[2]),12))
 		velocityZ.append(float(i[3]))
-		time.append(int(i[4])-1579810097)
+		time.append(int(i[4])-7068959)
 		GPSlng.append(float(i[5]))
 		GPSlat.append(float(i[6]))
 
@@ -106,16 +106,16 @@ for i in range(1,t.shape[0]):#循环从1开始到样本数前一个结束
 
 plt.plot(time,posFake,label='Fake position')
 
-plt.plot(t,predicts,label='kalman filtered position')
+#plt.plot(t,predicts,label='kalman filtered position')
 
 
 
 error = []
 
-print(predicts[55]-posFake[55])
-print(predicts[56]-posFake[56])
-print(predicts[57]-posFake[57])
-print(predicts[58]-posFake[58])
+print(predicts[28]-posFake[28])
+print(predicts[29]-posFake[29])
+print(predicts[30]-posFake[30])
+print(predicts[31]-posFake[31])
 for x in np.arange(0, t.shape[0]):
     if predicts[x] - posFake[x]<-0.5 or predicts[x] - posFake[x] > 0.5:
         error.append(x)
@@ -148,7 +148,7 @@ while i < len(name)-1:
     positionImpute.append(get_distance_hav(GPSlat[i],GPSRenew[i],GPSlat[i+1],GPSRenew[i+1]))
     i = i + 1
 
-with open("/Users/luzhongyi/Desktop/result.csv", "w") as wcsvfile:
+with open("/Users/luzhongyi/Desktop/result_test_2.csv", "w") as wcsvfile:
         writer = csv.writer(wcsvfile)
         i = 0
         while i < len(GPSlat):
@@ -156,9 +156,10 @@ with open("/Users/luzhongyi/Desktop/result.csv", "w") as wcsvfile:
             i = i + 1
 
 
-#plt.plot(time,positionImpute,label='Imputation')
+
 
 plt.plot(t,pos,label='truth position')
+plt.plot(time,positionImpute,label='Imputation')
 
 plt.legend()
 
